@@ -28,6 +28,18 @@
 コマンドで以下を実行する。
 
 ~~~sh
-$ node 10puzzle.js 1234
+$ node Npuzzle.js 1234
 ~~~
 
+クラスを継承すれば計算結果が例えば2のものも作れる!
+そんなに大したことないけど。
+
+~~~js
+class Maker2 extends MakerN {
+  constructor(numberStr) {
+    super(2, numberStr);
+  }
+};
+let maker = new Maker2(process.argv[2]);
+maker.make();
+~~~
