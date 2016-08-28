@@ -3,7 +3,7 @@
 class MakerN {
   constructor(total, numberStr) {
     // 合計いくつになることを求めるか
-    this._total     = total;
+    this._total     = Number(total);
     // 入力される数値文字列
     this._numberStr = numberStr;
     // 引数はN桁の数値文字列を受け取り、
@@ -83,7 +83,7 @@ class MakerN {
     };
     let gen = (result, pattern, operator, order) => {
       return {
-        result : result,
+        result : Number(result),
         formula: format(pattern, operator, order),
       };
     };
@@ -97,29 +97,29 @@ class MakerN {
     let gen2 = (pattern, operator) => {
       let result = null;
       result = operator[0].callback(pattern[0], pattern[1]);
-      let _r = operator[1].callback(pattern[2], pattern[3]);
-      result = operator[2].callback(result    , _r);
+      let _r = operator[2].callback(pattern[2], pattern[3]);
+      result = operator[1].callback(result    , _r);
       return gen(result, pattern, operator, self._orders[1]);
     };
     let gen3 = (pattern, operator) => {
       let result = null;
-      result = operator[0].callback(pattern[1], pattern[2]);
-      result = operator[1].callback(pattern[0], result);
+      result = operator[1].callback(pattern[1], pattern[2]);
+      result = operator[0].callback(pattern[0], result);
       result = operator[2].callback(result    , pattern[3]);
       return gen(result, pattern, operator, self._orders[2]);
     };
     let gen4 = (pattern, operator) => {
       let result = null;
-      result = operator[0].callback(pattern[1], pattern[2]);
+      result = operator[1].callback(pattern[1], pattern[2]);
       result = operator[2].callback(result    , pattern[3]);
-      result = operator[1].callback(pattern[0], result);
+      result = operator[0].callback(pattern[0], result);
       return gen(result, pattern, operator, self._orders[3]);
     };
     let gen5 = (pattern, operator) => {
       let result = null;
-      result = operator[0].callback(pattern[2], pattern[3]);
+      result = operator[2].callback(pattern[2], pattern[3]);
       result = operator[1].callback(pattern[1], result);
-      result = operator[2].callback(pattern[0], result);
+      result = operator[0].callback(pattern[0], result);
       return gen(result, pattern, operator, self._orders[4]);
     };
     let results = [];
@@ -127,25 +127,29 @@ class MakerN {
     self._patterns.forEach((pattern) => {
       self._operators.forEach((operator) => {
         buf = gen1(pattern, operator);
-        if (buf.result === this._total) results.push(buf.formula);
+        if (buf.result === self._total) {
+          results.push(buf.formula);
+        }
         buf = gen2(pattern, operator);
-        if (buf.result === this._total) results.push(buf.formula);
+        if (buf.result === self._total) {
+          results.push(buf.formula);
+        }
         buf = gen3(pattern, operator);
-        if (buf.result === this._total) results.push(buf.formula);
+        if (buf.result === self._total) {
+          results.push(buf.formula);
+        }
         buf = gen4(pattern, operator);
-        if (buf.result === this._total) results.push(buf.formula);
+        if (buf.result === self._total) {
+          results.push(buf.formula);
+        }
         buf = gen5(pattern, operator);
-        if (buf.result === this._total) results.push(buf.formula);
+        if (buf.result === self._total) {
+          results.push(buf.formula);
+        }
       });
     });
-    //console.log("patterns:" , this._patterns);
-    //console.log("operators:", this._operators);
-    //console.log("orders:"   , this._orders);
-    //console.log("result:"   , results);
-    if (results.length === 0) {
-      console.error(this._numberStr, "cannot make",this._total);
-    } else {
-      console.log(this._numberStr, "make", this._total, "ex)", results[0]);
+    if (results.length !== 0) {
+      console.log(self._numberStr, self._total, "result:" + results.join(","));
     }
   }
 };
@@ -156,5 +160,7 @@ class Maker10 extends MakerN {
   }
 };
 
-let maker = new Maker10(process.argv[2]);
-maker.make();
+for (let i = 0;i < 10000;++i) {
+  (new Maker10(("000" + i).slice(-4))).make();
+}
+

@@ -28,7 +28,8 @@
 コマンドで以下を実行する。
 
 ~~~sh
-$ node Npuzzle.js 1234
+$ node Npuzzle.js
+[計算対象の4桁の数値] [合計値:基本的に10] result:[カンマ区切りの計算文字列]
 ~~~
 
 クラスを継承すれば計算結果が例えば2のものも作れる!
@@ -43,3 +44,12 @@ class Maker2 extends MakerN {
 let maker = new Maker2(process.argv[2]);
 maker.make();
 ~~~
+
+## 結果確認
+
+~~~sh
+$ echo "[計算文字列]" | bc
+10
+~~~
+
+
