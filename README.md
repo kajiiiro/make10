@@ -1,4 +1,4 @@
-# 10 puzzle / make 10
+# make 10 / 10 puzzle
 
 高速道路を走っていて、暇な時にするあれです。
 前を走る車のナンバーを10にするあれです。
@@ -28,21 +28,8 @@
 コマンドで以下を実行する。
 
 ~~~sh
-$ node Npuzzle.js
+$ node index.js
 [計算対象の4桁の数値] [合計値:基本的に10] result:[カンマ区切りの計算文字列]
-~~~
-
-クラスを継承すれば計算結果が例えば2のものも作れる!
-そんなに大したことないけど。
-
-~~~js
-class Maker2 extends MakerN {
-  constructor(numberStr) {
-    super(2, numberStr);
-  }
-};
-let maker = new Maker2(process.argv[2]);
-maker.make();
 ~~~
 
 ## 結果確認
