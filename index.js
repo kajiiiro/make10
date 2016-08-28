@@ -1,4 +1,6 @@
-let Maker10 = required("./lib/Maker10.js");
+"use strict"
+
+let Maker10 = require("./lib/Maker10.js");
 
 let maker = new Maker10();
 for (let i = 0;i < 10000;++i) {
